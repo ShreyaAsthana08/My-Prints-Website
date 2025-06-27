@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: 'My Prints Website',
   icons: {
-    icon: '/favicon.ico', 
+    icon: '/favicon.png', 
   },
 };
 
