@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 
 const images = [
@@ -5,27 +6,40 @@ const images = [
   { url: "/2.png" },
   { url: "/3.png" },
   { url: "/4.png" },
-
 ];
 
 const Slider = () => {
-  return (
-    <div 
-    data-aos="fade-down"
-     data-aos-easing="linear"
-     data-aos-duration="1500"
-     >
+  const [sliderHeight, setSliderHeight] = useState(400); // default desktop height
 
+  useEffect(() => {
+    // Set height based on screen width (runs only in browser)
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setSliderHeight(width < 768 ? 200 : 400);
+    };
+
+    handleResize(); // set initially
+    window.addEventListener("resize", handleResize); // update on resize
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <div
+      data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="1500"
+    >
       <SimpleImageSlider
-        width={1521}
-        height={400}
+        width="100%"
+        height={sliderHeight}
         images={images}
         showBullets={true}
         showNavs={true}
         autoPlay={true}
-        autoPlayDelay={1.5}       
+        autoPlayDelay={1.5}
       />
     </div>
   );
-}
+};
+
 export default Slider;
